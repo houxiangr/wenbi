@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from './components/header'
-import Content from './components/content'
+import IndexContent from './indexContent/indexContent'
 import Footer from './components/footer'
 
 class Root extends React.Component {
@@ -8,7 +8,7 @@ class Root extends React.Component {
         return (
             <div>
                 <Header/>
-                <Content/>
+                <IndexContent/>
                 <Footer/>
             </div>
         );

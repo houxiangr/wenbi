@@ -1,11 +1,12 @@
 import React from 'react'
+import '../style/components/footer.less'
 
 class Footer extends React.Component {
     render() {
         return (
-            <div>
-                this is footer
-            </div>
+            <footer>
+
+            </footer>
         );
     }
 }

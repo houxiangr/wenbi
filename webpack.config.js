@@ -5,25 +5,26 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	entry: [
-	    // webpack-dev-server的入口配置
-        'webpack-dev-server/client?http://localhost:3000',
-        // 热更新的入口配置
-        'webpack/hot/only-dev-server',
-        'react-hot-loader/patch',
-        //代码入口配置
-        path.join(__dirname, 'app', 'index.js')
-    ],
-	output: {
-		path: path.join(__dirname, 'dist'),
-		filename: '[name].js',
+    entry: {
+        index: [// webpack-dev-server的入口配置
+            'webpack-dev-server/client?http://localhost:3000',
+            // 热更新的入口配置
+            'webpack/hot/only-dev-server',
+            'react-hot-loader/patch',
+            path.join(__dirname, 'app', 'index.js')
+        ]
+    },
+    output: {
+        path: path.join(__dirname, 'dist'),
+        filename: '[name].js',
         publicPath: '/'
-	},
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './app/index.tpl.html',
             inject: 'body',
-            filename: './index.html'
+            filename: './index.html',
+            chunks: ['index']
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
@@ -32,9 +33,9 @@ module.exports = {
             'process.env.NODE_ENV': JSON.stringify('development')
         })
     ],
-	mode: 'development',
+    mode: 'development',
     resolve: {
-        extensions: ['.js','.jsx','.json']
+        extensions: ['.js', '.jsx', '.json']
     },
     module: {
         rules: [
@@ -44,7 +45,7 @@ module.exports = {
                 loader: "babel-loader",
                 query:
                     {
-                        presets:['react','es2015']
+                        presets: ['react', 'es2015']
                     }
             },
             {
