@@ -1,6 +1,7 @@
 import React from 'react'
 import '../style/components/content.less'
 import EssayList from '../components/essayList'
+import '../style/indexContent/indexContent.less'
 
 class IndexContent extends React.Component {
     render() {
