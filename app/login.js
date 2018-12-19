@@ -1,25 +1,31 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
-import Root from './root'
+import Footer from './components/footer'
+import './style/login.less'
+import {render} from "react-dom";
+
+class Login extends React.Component {
+    render() {
+        return (
+            <div id="container">
+                <div id="login-background">
+                    <div id="login-module">
+                        <h1>登陆</h1>
+                        <form action="#">
+                            <span>用户名:</span>
+                            <input type="text" name="username"/>
+                            <span>密码:</span>
+                            <input type="text" name="password"/>
+                            <button>登陆</button>
+                        </form>
+                    </div>
+                </div>
+                <Footer/>
+            </div>
+        );
+    }
+}
 
 render(
-    <AppContainer>
-        <Root/>
-    </AppContainer>,
+    <Login/>,
     document.getElementById('root')
 );
-
-
-// 热更新的配置
-if (module.hot) {
-    module.hot.accept('./root', () => {
-        const NewRoot = require('./root').default;
-        render(
-            <AppContainer>
-                <NewRoot />
-            </AppContainer>,
-            document.getElementById('root')
-        );
-    });
-}
