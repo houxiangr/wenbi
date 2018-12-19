@@ -12,6 +12,14 @@ module.exports = {
             'webpack/hot/only-dev-server',
             'react-hot-loader/patch',
             path.join(__dirname, 'app', 'index.js')
+        ],
+        login: [
+            // webpack-dev-server的入口配置
+            'webpack-dev-server/client?http://localhost:3000',
+            // 热更新的入口配置
+            'webpack/hot/only-dev-server',
+            'react-hot-loader/patch',
+            path.join(__dirname, 'app', 'login.js')
         ]
     },
     output: {
@@ -26,6 +34,12 @@ module.exports = {
             filename: './index.html',
             chunks: ['index']
         }),
+        new HtmlWebpackPlugin({
+            template: './app/index.tpl.html',
+            inject: 'body',
+            filename: './login.html',
+            chunks: ['login']
+        }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
@@ -35,7 +49,7 @@ module.exports = {
     ],
     mode: 'development',
     resolve: {
-        extensions: ['.js', '.jsx', '.json']
+        extensions: ['.js', '.jsx', 'json']
     },
     module: {
         rules: [
@@ -49,12 +63,8 @@ module.exports = {
                     }
             },
             {
-                test: /\.json?$/,
-                loader: 'json'
-            },
-            {
                 test: /\.css$/,
-                loader: "style!css"
+                loader: "style-loader!css-loader"
             },
             {
                 test: /\.less/,

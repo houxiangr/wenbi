@@ -1,14 +1,23 @@
 import React from 'react'
-import Header from './components/header'
-import IndexContent from './indexContent/indexContent'
 import Footer from './components/footer'
+import './style/login/login.less'
 
 class Root extends React.Component {
     render() {
         return (
-            <div>
-                <Header/>
-                <IndexContent/>
+            <div id="container">
+                <div id="login-background">
+                    <div id="login-module">
+                        <h1>登陆</h1>
+                        <form action="#">
+                            <span>用户名:</span>
+                            <input type="text" name="username"/>
+                            <span>密码:</span>
+                            <input type="text" name="password"/>
+                            <button>登陆</button>
+                        </form>
+                    </div>
+                </div>
                 <Footer/>
             </div>
         );

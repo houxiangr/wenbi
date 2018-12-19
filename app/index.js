@@ -1,25 +1,22 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
-import Root from './root'
+import Header from './components/header'
+import IndexContent from './indexContent/indexContent'
+import Footer from './components/footer'
+import {render} from "react-dom";
+
+class Index extends React.Component {
+    render() {
+        return (
+            <div id="container">
+                <Header/>
+                <IndexContent/>
+                <Footer/>
+            </div>
+        );
+    }
+}
 
 render(
-    <AppContainer>
-        <Root/>
-    </AppContainer>,
+    <Index/>,
     document.getElementById('root')
 );
-
-
-// 热更新的配置
-if (module.hot) {
-    module.hot.accept('./root', () => {
-        const NewRoot = require('./root').default;
-        render(
-            <AppContainer>
-                <NewRoot />
-            </AppContainer>,
-            document.getElementById('root')
-        );
-    });
-}

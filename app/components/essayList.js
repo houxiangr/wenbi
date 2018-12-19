@@ -1,27 +1,27 @@
 import React from 'react'
 import '../style/components/essayList.less'
+import essayDatas from '../data/essay.json';
+
+class EssayListOne extends React.Component {
+    render() {
+        return (
+            <li><a href="#">{this.props.essayTitle}</a></li>
+        );
+    }
+}
 
 class EssayList extends React.Component {
     render() {
+        let essayLis = [];
+        //单个文章标签组合
+        essayDatas.forEach(function(value,index){
+            essayLis.push(<EssayListOne key={index} essayTitle={value.essayTitle}/>);
+        });
         return (
             <section id="essay-list" className="fl">
                 <span id="essay-class-title">{this.props.title}</span>
                 <ul>
-                    <li><a href="#">文章1</a></li>
-                    <li><a href="#">文章2</a></li>
-                    <li><a href="#">文章3</a></li>
-                    <li><a href="#">文章4</a></li>
-                    <li><a href="#">文章5</a></li>
-                    <li><a href="#">文章6</a></li>
-                    <li><a href="#">文章7</a></li>
-                    <li><a href="#">文章8</a></li>
-                    <li><a href="#">文章9</a></li>
-                    <li><a href="#">文章10</a></li>
-                    <li><a href="#">文章11</a></li>
-                    <li><a href="#">文章12</a></li>
-                    <li><a href="#">文章13</a></li>
-                    <li><a href="#">文章14</a></li>
-                    <li><a href="#">文章15</a></li>
+                    {essayLis}
                 </ul>
             </section>
         );
