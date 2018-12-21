@@ -1,25 +1,22 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
-import Root from './root'
+import Footer from './components/footer'
+import Header from './components/header'
+import EditEssayContent from './editEssayContent/editEssayContent'
+import {render} from 'react-dom'
+
+class EditEssay extends React.Component {
+    render() {
+        return (
+            <div id="container">
+                <Header/>
+                <EditEssayContent/>
+                <Footer/>
+            </div>
+        );
+    }
+}
 
 render(
-    <AppContainer>
-        <Root/>
-    </AppContainer>,
+    <EditEssay/>,
     document.getElementById('root')
 );
-
-
-// 热更新的配置
-if (module.hot) {
-    module.hot.accept('./root', () => {
-        const NewRoot = require('./root').default;
-        render(
-            <AppContainer>
-                <NewRoot />
-            </AppContainer>,
-            document.getElementById('root')
-        );
-    });
-}

@@ -11,13 +11,15 @@ module.exports = {
         register: path.join(__dirname, 'app', 'register.js'),
         searchRes: path.join(__dirname, 'app', 'searchRes.js'),
         userInfo: path.join(__dirname, 'app', 'userInfo.js'),
-        editEssay: [
+        editEssay: path.join(__dirname, 'app', 'editEssay.js'),
+        essayView: path.join(__dirname, 'app', 'essayView.js'),
+        test: [
             // webpack-dev-server的入口配置
             'webpack-dev-server/client?http://localhost:3000',
             // 热更新的入口配置
             'webpack/hot/only-dev-server',
             'react-hot-loader/patch',
-            path.join(__dirname, 'app', 'editEssay.js')
+            path.join(__dirname, 'app', 'essayView.js')
         ]
     },
     output: {
@@ -61,6 +63,18 @@ module.exports = {
             inject: 'body',
             filename: './editEssay.html',
             chunks: ['editEssay']
+        }),
+        new HtmlWebpackPlugin({
+            template: './app/index.tpl.html',
+            inject: 'body',
+            filename: './essayView.html',
+            chunks: ['essayView']
+        }),
+        new HtmlWebpackPlugin({
+            template: './app/index.tpl.html',
+            inject: 'body',
+            filename: './test.html',
+            chunks: ['test']
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
