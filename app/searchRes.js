@@ -1,18 +1,22 @@
 import React from 'react'
 import Footer from './components/footer'
 import Header from './components/header'
-import EditEssayContent from './editEssayContent/editEssayContent'
+import SearchResContent from './searchResContent/searchResContent'
+import {render} from "react-dom";
 
-class Root extends React.Component {
+class SearchRes extends React.Component {
     render() {
         return (
             <div id="container">
                 <Header/>
-                <EditEssayContent/>
+                <SearchResContent/>
                 <Footer/>
             </div>
         );
     }
 }
 
-export default Root;
+render(
+    <SearchRes/>,
+    document.getElementById('root')
+);

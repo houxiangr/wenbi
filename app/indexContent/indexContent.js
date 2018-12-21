@@ -3,17 +3,7 @@ import '../style/components/content.less'
 import EssayList from '../components/essayList'
 import '../style/indexContent/indexContent.less'
 import HobbyEssay from '../data/hobbyessay.json'
-
-class EssayImage extends React.Component {
-    render() {
-        return (
-            <a href="#" className="hobby-essay">
-                <img className="essay-img" src={this.props.imgUrl} alt={this.props.essayTitle} />
-                <span className="essay-title" >{this.props.essayTitle}</span>
-            </a>
-        );
-    }
-}
+import EssayImage from '../components/essayImage'
 
 class IndexContent extends React.Component {
     render() {

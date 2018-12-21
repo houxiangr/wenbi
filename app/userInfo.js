@@ -1,18 +1,22 @@
 import React from 'react'
 import Footer from './components/footer'
 import Header from './components/header'
-import EditEssayContent from './editEssayContent/editEssayContent'
+import UserInfoContent from './userInfoContent/userInfoContent'
+import {render} from 'react-dom'
 
-class Root extends React.Component {
+class UserInfo extends React.Component {
     render() {
         return (
             <div id="container">
                 <Header/>
-                <EditEssayContent/>
+                <UserInfoContent/>
                 <Footer/>
             </div>
         );
     }
 }
 
-export default Root;
+render(
+    <UserInfo/>,
+    document.getElementById('root')
+);

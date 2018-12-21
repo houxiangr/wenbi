@@ -1,25 +1,37 @@
 import React from 'react'
-import { render } from 'react-dom'
-import { AppContainer } from 'react-hot-loader'
-import Root from './root'
+import Footer from './components/footer'
+import './style/register.less'
+import {render} from "react-dom"
+
+class Register extends React.Component {
+    render() {
+        return (
+            <div id="container">
+                <div id="register-background">
+                    <div id="register-module">
+                        <h1>注册</h1>
+                        <form action="#">
+                            <span>昵称:</span>
+                            <input type="text" name="nickname"/>
+                            <span>用户名:</span>
+                            <input type="text" name="username"/>
+                            <span>密码:</span>
+                            <input type="text" name="password"/>
+                            <span>二次密码:</span>
+                            <input type="text" name="dpassword"/>
+                            <button>注册</button>
+                        </form>
+                    </div>
+                </div>
+                <Footer/>
+            </div>
+        );
+    }
+}
 
 render(
-    <AppContainer>
-        <Root/>
-    </AppContainer>,
+    <Register/>,
     document.getElementById('root')
 );
 
 
-// 热更新的配置
-if (module.hot) {
-    module.hot.accept('./root', () => {
-        const NewRoot = require('./root').default;
-        render(
-            <AppContainer>
-                <NewRoot />
-            </AppContainer>,
-            document.getElementById('root')
-        );
-    });
-}

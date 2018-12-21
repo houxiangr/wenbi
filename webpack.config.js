@@ -6,28 +6,18 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        index: [// webpack-dev-server的入口配置
-            'webpack-dev-server/client?http://localhost:3000',
-            // 热更新的入口配置
-            'webpack/hot/only-dev-server',
-            'react-hot-loader/patch',
-            path.join(__dirname, 'app', 'index.js')
-        ],
-        login: [
+        index: path.join(__dirname, 'app', 'index.js'),
+        login: path.join(__dirname, 'app', 'login.js'),
+        register: path.join(__dirname, 'app', 'register.js'),
+        searchRes: path.join(__dirname, 'app', 'searchRes.js'),
+        userInfo: path.join(__dirname, 'app', 'userInfo.js'),
+        editEssay: [
             // webpack-dev-server的入口配置
             'webpack-dev-server/client?http://localhost:3000',
             // 热更新的入口配置
             'webpack/hot/only-dev-server',
             'react-hot-loader/patch',
-            path.join(__dirname, 'app', 'login.js')
-        ],
-        register: [
-            // webpack-dev-server的入口配置
-            'webpack-dev-server/client?http://localhost:3000',
-            // 热更新的入口配置
-            'webpack/hot/only-dev-server',
-            'react-hot-loader/patch',
-            path.join(__dirname, 'app', 'register.js')
+            path.join(__dirname, 'app', 'editEssay.js')
         ]
     },
     output: {
@@ -53,6 +43,24 @@ module.exports = {
             inject: 'body',
             filename: './register.html',
             chunks: ['register']
+        }),
+        new HtmlWebpackPlugin({
+            template: './app/index.tpl.html',
+            inject: 'body',
+            filename: './searchRes.html',
+            chunks: ['searchRes']
+        }),
+        new HtmlWebpackPlugin({
+            template: './app/index.tpl.html',
+            inject: 'body',
+            filename: './userInfo.html',
+            chunks: ['userInfo']
+        }),
+        new HtmlWebpackPlugin({
+            template: './app/index.tpl.html',
+            inject: 'body',
+            filename: './editEssay.html',
+            chunks: ['editEssay']
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
