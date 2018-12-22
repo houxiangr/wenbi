@@ -5,7 +5,7 @@ import essayDatas from '../data/essay.json';
 class EssayListOne extends React.Component {
     render() {
         return (
-            <li><a href="#">{this.props.essayTitle}</a></li>
+            <li><a href="/essayView">{this.props.essayTitle}</a></li>
         );
     }
 }

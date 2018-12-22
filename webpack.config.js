@@ -19,13 +19,13 @@ module.exports = {
             // 热更新的入口配置
             'webpack/hot/only-dev-server',
             'react-hot-loader/patch',
-            path.join(__dirname, 'app', 'essayView.js')
+            path.join(__dirname, 'app', 'test.js')
         ]
     },
     output: {
         path: path.join(__dirname, 'dist'),
         filename: '[name].js',
-        publicPath: '/'
+        publicPath: '/static'
     },
     plugins: [
         new HtmlWebpackPlugin({
