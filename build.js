@@ -22,6 +22,10 @@ function compileAndServer(){
             let filePath = path.join(outputdir, 'index.html');
             res.sendFile(filePath);
         });
+        app.get('/index', function(req, res){
+            let filePath = path.join(outputdir, 'index.html');
+            res.sendFile(filePath);
+        });
         app.get('/login', function(req, res){
             let filePath = path.join(outputdir, 'login.html');
             res.sendFile(filePath);
