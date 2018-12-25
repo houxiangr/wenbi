@@ -4,7 +4,7 @@ import './style/login.less'
 import {render} from "react-dom"
 import $ from 'jquery'
 import Util from './util/util'
-import Route from './webserverRoute'
+import serverRoute from './webserverRoute'
 import axios from 'axios'
 
 
@@ -37,7 +37,7 @@ class Login extends React.Component {
             });
             return;
         }
-        axios.post(Route.login,formData,{
+        axios.post(serverRoute.login,formData,{
             //跨域解决携带session问题
             withCredentials: false
         }).then(function(res){

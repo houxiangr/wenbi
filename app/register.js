@@ -4,7 +4,7 @@ import './style/register.less'
 import {render} from "react-dom"
 import $ from 'jquery'
 import Util from './util/util'
-import Route from './webserverRoute'
+import webserverRoute from './webserverRoute'
 import axios from 'axios'
 
 class Register extends React.Component {
@@ -53,7 +53,7 @@ class Register extends React.Component {
         formData.set("phonenumber", phonenumber);
         formData.set("password", password);
         formData.delete("dpassword");
-        axios.post(Route.register,formData).then(function(res){
+        axios.post(webserverRoute.register,formData).then(function(res){
             let data = res.data;
             if(data.state){
                 this.setState({

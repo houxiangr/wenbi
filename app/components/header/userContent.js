@@ -1,5 +1,7 @@
 import React from 'react'
 import '../../style/components/header/userContent.less'
+import webserverRoute from '../../webserverRoute'
+import axios from 'axios'
 
 class UserNotLogin extends React.Component {
     render() {
@@ -29,21 +31,43 @@ class UserContent extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            username: "houxiang"
+            // 在用户是否登陆结果出来后再显示用户头部模块
+            loginState: false,
+            username: null
         }
     }
+
+    componentWillMount() {
+        let that = this;
+        axios.post(webserverRoute.isLogin).then(function(res){
+            let data = res.data;
+            if(data.loginState){
+                that.setState({
+                    username: data.nickname
+                });
+            }
+            that.setState({
+                loginState: true
+            });
+        });
+    }
+
     render() {
+        const loginState = this.state.loginState;
         const username = this.state.username;
+        let loginElement = "";
+        if(loginState) {
+            if(username == null){
+                loginElement = <UserNotLogin/>;
+                console.log(loginState);
+            }else{
+                loginElement = <UserLogin username={this.state.username}/>;
+            }
+        }
         return (
             <div id="user-con" className="fr">
                 {
-                    username == null
-                    ? (
-                        <UserNotLogin/>
-                    )
-                    :(
-                        <UserLogin username={this.state.username}/>
-                    )
+                    loginElement
                 }
             </div>
         );
