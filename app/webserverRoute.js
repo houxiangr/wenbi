@@ -4,7 +4,8 @@ let Route = {
     login: prefix+"/user/login",
     isLogin: prefix+"/user/isLogin",
     exitLogin: prefix+"/user/exitLogin",
-    addEssay: prefix+"/essay/addEssay"
+    addEssay: prefix+"/essay/addEssay",
+    viewEssay: prefix+"/essay/viewEssay"
 };
 
 module.exports = Route;

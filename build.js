@@ -46,7 +46,7 @@ function compileAndServer(){
             let filePath = path.join(outputdir, 'editEssay.html');
             res.sendFile(filePath);
         });
-        app.get('/essayView', function(req, res){
+        app.get('/essayView/essid/:id', function(req, res){
             let filePath = path.join(outputdir, 'essayView.html');
             res.sendFile(filePath);
         });

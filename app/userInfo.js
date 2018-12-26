@@ -8,7 +8,7 @@ class UserInfo extends React.Component {
     render() {
         return (
             <div id="container">
-                <Header/>
+                <Header mustLogin={true}/>
                 <UserInfoContent/>
                 <Footer/>
             </div>

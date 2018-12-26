@@ -36,7 +36,10 @@ class EditEssayContent extends React.Component {
         }
         formData.append("essayContent",essayContent);
         formData.set("essayTitle",essayTitle);
-        axios.post(webserverRoute.addEssay,formData).then(function(res){
+        let config = {
+            headers:{'Content-Type':'multipart/form-data'}
+        };
+        axios.post(webserverRoute.addEssay,formData,config).then(function(res){
             let data = res.data;
             if(data.state){
                 that.setState({
@@ -68,6 +71,10 @@ class EditEssayContent extends React.Component {
                     <div>
                         <span>文章标题：</span>
                         <input type="text" name="essay-title"/>
+                    </div>
+                    <div>
+                        <span>文章封面</span>
+                        <input type="file" name="essay-cover" id="essay-cover" accept="image/*"/>
                     </div>
                     <div>
                         <span>文章内容：</span>

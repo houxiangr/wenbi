@@ -27,6 +27,7 @@ class UserLogin extends React.Component {
         axios.post(webserverRoute.exitLogin).then(function(){
             window.location.href="/login";
         }).catch(function(err){
+            // TODO 错误处理
             console.log(err);
         });
     }
@@ -51,7 +52,7 @@ class UserContent extends React.Component {
             // 在用户是否登陆结果出来后再显示用户头部模块
             loginState: false,
             username: null
-        }
+        };
     }
 
     componentWillMount() {

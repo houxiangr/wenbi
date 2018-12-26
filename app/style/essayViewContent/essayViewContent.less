@@ -17,27 +17,26 @@
   }
   //文章修改历史
   //文章标题和内容区域
-  #essay-title {
-    margin-left: 10px;
-  }
   #essay-content {
     padding: 10px;
     font-size: 16px;
   }
   //文章标题和内容区域
-
 }
 //显示文章内容区域
 //显示评论区域
 #comment-box {
   position: relative;
   width: 40%;
+  min-height:500px;
   .comment-content {
-    margin: 10px 45px 10px 10px;
+    margin: 10px 10px 10px 10px;
     position: absolute;
     top: 100px;
     left: 50px;
-    width:auto;
+    max-width:175px;
+    max-height:105px;
+    overflow-y: scroll;
     border-bottom: skyblue solid 1px;
   }
   .comment-date {
