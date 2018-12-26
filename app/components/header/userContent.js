@@ -15,12 +15,29 @@ class UserNotLogin extends React.Component {
 }
 
 class UserLogin extends React.Component {
+    constructor(props){
+        super(props);
+        this.exitLoginHandle=this.exitLoginHandle.bind(this);
+    }
+
+    //退出登陆
+    exitLoginHandle(e){
+        e.preventDefault();
+        e.stopPropagation();
+        axios.post(webserverRoute.exitLogin).then(function(){
+            window.location.href="/login";
+        }).catch(function(err){
+            console.log(err);
+        });
+    }
+
     render() {
         return (
             <div>
                 <span>当前用户：</span>
                 <a href="/userInfo" className="header-button">{this.props.username}</a>
                 <a href="/editEssay" className="header-button">发布文章</a>
+                <a href="javascript:void(0)" className="header-button" onClick={this.exitLoginHandle}>退出登陆</a>
             </div>
         );
     }
@@ -49,6 +66,9 @@ class UserContent extends React.Component {
             that.setState({
                 loginState: true
             });
+            if(!data.loginState && that.props.mustLogin){
+                window.location.href="/login"
+            }
         });
     }
 
@@ -59,7 +79,6 @@ class UserContent extends React.Component {
         if(loginState) {
             if(username == null){
                 loginElement = <UserNotLogin/>;
-                console.log(loginState);
             }else{
                 loginElement = <UserLogin username={this.state.username}/>;
             }

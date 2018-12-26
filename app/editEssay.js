@@ -8,7 +8,7 @@ class EditEssay extends React.Component {
     render() {
         return (
             <div id="container">
-                <Header/>
+                <Header mustLogin={true}/>
                 <EditEssayContent/>
                 <Footer/>
             </div>

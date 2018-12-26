@@ -15,8 +15,9 @@ class EditorConvertToHTML extends Component {
     }
 
     onEditorStateChange(editorState) {
+        this.props.getContentHandle(draftToHtml(convertToRaw(editorState.getCurrentContent())));
         this.setState({
-            editorState: editorState,
+            editorState: editorState
         });
     };
 
@@ -36,21 +37,21 @@ class EditorConvertToHTML extends Component {
 
     // formSubmit() {
     //     // 转换成HTML格式
-    //     var editorContent = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()))
+    //     var editorContent = draftToHtml(convertToRaw(this.state.editorState.getCurrentContent()));
     //     this.props.saveSys({roomnotes: editorContent})
     // }
 
     // componentWillReceiveProps(nextProps) {
-    //     //     if (this.props.getSysResult!==nextProps.getSysResult && nextProps.getSysResult.data) {
-    //     //         // 匹配富文本编辑器格式，回显保存的内容
-    //     //         const contentBlock = htmlToDraft(nextProps.getSysResult.data.roomnotes);
-    //     //         if (contentBlock) {
-    //     //             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-    //     //             const editorState = EditorState.createWithContent(contentState);
-    //     //             this.setState({ editorState })
-    //     //         }
-    //     //     }
-    //     // }
+    //     if (this.props.getSysResult!==nextProps.getSysResult && nextProps.getSysResult.data) {
+    //         // 匹配富文本编辑器格式，回显保存的内容
+    //         const contentBlock = htmlToDraft(nextProps.getSysResult.data.roomnotes);
+    //         if (contentBlock) {
+    //             const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+    //             const editorState = EditorState.createWithContent(contentState);
+    //             this.setState({ editorState })
+    //         }
+    //     }
+    // }
 }
 
 export default EditorConvertToHTML;

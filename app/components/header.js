@@ -8,7 +8,7 @@ class Header extends React.Component {
         return (
             <header>
                 <SiteContent/>
-                <UserContent/>
+                <UserContent mustLogin={this.props.mustLogin}/>
             </header>
         );
     }
