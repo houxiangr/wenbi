@@ -7,7 +7,8 @@ let Route = {
     addEssay: prefix+"/essay/addEssay",
     viewEssay: prefix+"/essay/viewEssay",
     getComment: prefix+"/comment/getComment",
-    addComment: prefix+"/comment/addComment"
+    addComment: prefix+"/comment/addComment",
+    upComment: prefix+"/comment/upComment"
 };
 
 module.exports = Route;

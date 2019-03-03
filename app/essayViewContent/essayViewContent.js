@@ -32,13 +32,16 @@ class EssayViewContent extends React.Component {
         let siteUrl = window.location.href;
         let parameterArr = Util.getGetUrlParameters(siteUrl, "essid");
         essayId = parameterArr["essid"];
-        that.handleEssayScroll = that.handleEssayScroll.bind(this);
-        that.handleaddComment = that.handleaddComment.bind(this);
+        that.handleEssayScroll = that.handleEssayScroll.bind(that);
+        that.handleaddComment = that.handleaddComment.bind(that);
+        that.handleCollect = that.handleCollect.bind(that);
         that.state = {
             //文章内容
             essay: {},
             //保存已载入评论数组
             loadedComments: [],
+            //是否已收藏此文章
+            isCollect: false
         };
     }
 
@@ -217,6 +220,14 @@ class EssayViewContent extends React.Component {
         });
     }
 
+    //绑定收藏事件
+    handleCollect(){
+        var that = this;
+        that.setState({
+            isCollect: true
+        });
+    }
+
 
     render() {
         return (
@@ -230,7 +241,8 @@ class EssayViewContent extends React.Component {
                     {/*<a href="#" className="history-version">4</a>*/}
                     {/*</div>*/}
                     <h1 id="essay-title" className="ml10">{this.state.essay.essayTitle}</h1>
-                    <img src="/static/img/collect.png" alt="收藏"/>
+                    <img src={this.state.isCollect?"/static/img/essayview/collected.png":"/static/img/essayview/collect.png"} alt="收藏" className="collectIcon"
+                         onClick={this.handleCollect}/>
                     <span id="essay-author" className="ml20">{this.state.essay.authorName}</span>
                     <span id="essay-date" className="ml20">{this.state.essay.essayDate}</span>
                     <div id="essay-content" dangerouslySetInnerHTML={{__html: this.state.essay.essayContent}}/>
@@ -239,7 +251,7 @@ class EssayViewContent extends React.Component {
                     {
                         this.state.loadedComments.map(function(comment){
                             return (<CommentContent key={comment.commentId} commentId={comment.commentId} commentPeople={comment.authorName}
-                                                    commentContent={comment.commentContent} commentDate={comment.commentDate}
+                                                    commentContent={comment.commentContent} commentDate={comment.commentDate} supportNum={comment.supportNum} UpNum={comment.thumbsUp}
                                                     commentLeft={comment.ramdomLeft} commentHeight={commentOffsetHeight}
                                                     cleanOutComment={this.cleanOutComment.bind(this)}/>);
                         }.bind(this))
