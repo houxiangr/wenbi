@@ -56,15 +56,16 @@ class Register extends React.Component {
         axios.post(webserverRoute.register,formData).then(function(res){
             let data = res.data;
             if(data.state){
-                this.setState({
+                that.setState({
                     hintMessage: data.msg
                 });
             }else{
-                this.setState({
+                that.setState({
                     hintMessage: data.msg
                 });
             }
         }).catch(function(err){
+            console.log(err);
             that.setState({
                 hintMessage: "注册失败"
             });

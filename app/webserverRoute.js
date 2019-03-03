@@ -5,7 +5,9 @@ let Route = {
     isLogin: prefix+"/user/isLogin",
     exitLogin: prefix+"/user/exitLogin",
     addEssay: prefix+"/essay/addEssay",
-    viewEssay: prefix+"/essay/viewEssay"
+    viewEssay: prefix+"/essay/viewEssay",
+    getComment: prefix+"/comment/getComment",
+    addComment: prefix+"/comment/addComment"
 };
 
 module.exports = Route;
