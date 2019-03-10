@@ -41,9 +41,24 @@ class EssayViewContent extends React.Component {
             //保存已载入评论数组
             loadedComments: [],
             //是否已收藏此文章
-            isCollect: false
+            isCollect: false,
+            //保存登陆状态
+            loginState: false
         };
     }
+
+    componentWillMount() {
+        let that = this;
+        axios.post(webserverRoute.isLogin).then(function(res){
+            let data = res.data;
+            if(data.loginState){
+                that.setState({
+                    loginState: true
+                });
+            }
+        });
+    }
+
 
     cleanOutComment(commentId){
         let loadedComments = this.state.loadedComments;
@@ -65,8 +80,10 @@ class EssayViewContent extends React.Component {
         axios.post(webserverRoute.viewEssay, {
             essid: essayId
         }).then(function (res) {
+            console.log(res);
             that.setState({
-                essay: res.data
+                essay: res.data,
+                isCollect: res.data.isCollect !== 0
             });
         }).catch(function (err) {
             // TODO 错误处理
@@ -200,6 +217,10 @@ class EssayViewContent extends React.Component {
         e.preventDefault();
         e.stopPropagation();
         var that = this;
+        //防止未登录评论
+        if(!that.state.loginState){
+            return;
+        }
         let formData = new FormData($("#comment-add-form")[0]);
         let commentContent =formData.get("comment-content").trim();
         if(commentContent === ""){
@@ -223,9 +244,25 @@ class EssayViewContent extends React.Component {
     //绑定收藏事件
     handleCollect(){
         var that = this;
-        that.setState({
-            isCollect: true
+        //防止未登录收藏
+        if(!that.state.loginState){
+            return;
+        }
+        //防止重复收藏
+        if(that.state.isCollect){
+            return;
+        }
+        axios.post(webserverRoute.collectEssay,qs.stringify({
+            essayId: that.state.essay.essayId
+        })).then(function(res){
+            that.setState({
+                isCollect: true
+            });
+        }).catch(function(err){
+            //TODO 错误处理
+            console.log(err)
         });
+
     }
 
 

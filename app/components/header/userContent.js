@@ -61,12 +61,10 @@ class UserContent extends React.Component {
             let data = res.data;
             if(data.loginState){
                 that.setState({
-                    username: data.nickname
+                    username: data.nickname,
+                    loginState: true
                 });
             }
-            that.setState({
-                loginState: true
-            });
             if(!data.loginState && that.props.mustLogin){
                 window.location.href="/login"
             }
@@ -78,11 +76,9 @@ class UserContent extends React.Component {
         const username = this.state.username;
         let loginElement = "";
         if(loginState) {
-            if(username == null){
-                loginElement = <UserNotLogin/>;
-            }else{
-                loginElement = <UserLogin username={this.state.username}/>;
-            }
+            loginElement = <UserLogin username={this.state.username}/>;
+        }else {
+            loginElement = <UserNotLogin/>
         }
         return (
             <div id="user-con" className="fr">

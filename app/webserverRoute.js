@@ -6,6 +6,7 @@ let Route = {
     exitLogin: prefix+"/user/exitLogin",
     addEssay: prefix+"/essay/addEssay",
     viewEssay: prefix+"/essay/viewEssay",
+    collectEssay: prefix+"/essay/collectEssay",
     getComment: prefix+"/comment/getComment",
     addComment: prefix+"/comment/addComment",
     upComment: prefix+"/comment/upComment"
