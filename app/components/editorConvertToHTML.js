@@ -15,6 +15,7 @@ class EditorConvertToHTML extends Component {
     }
 
     onEditorStateChange(editorState) {
+        console.log(editorState.getCurrentContent());
         this.props.getContentHandle(draftToHtml(convertToRaw(editorState.getCurrentContent())));
         this.setState({
             editorState: editorState

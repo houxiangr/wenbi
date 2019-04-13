@@ -80,7 +80,7 @@ class EssayViewContent extends React.Component {
         axios.post(webserverRoute.viewEssay, {
             essid: essayId
         }).then(function (res) {
-            console.log(res);
+            // console.log(res);
             that.setState({
                 essay: res.data,
                 isCollect: res.data.isCollect !== 0
@@ -157,7 +157,7 @@ class EssayViewContent extends React.Component {
 
     //将未载入列表中的评论部分转入显示列表并开始动画的函数，将放入定时器中定时执行
     runComment(){
-        console.log(unloadComments);
+        // console.log(unloadComments);
         var that = this;
         //当前没有未载入评论
         if(unloadComments.length === 0){
@@ -200,7 +200,7 @@ class EssayViewContent extends React.Component {
         e.stopPropagation();
         let tempScrollTop = Math.floor(e.nativeEvent.target.scrollTop);
         if(Math.abs(tempScrollTop - scrollTop)>50){
-            console.log(tempScrollTop);
+            // console.log(tempScrollTop);
             if(updataCommentTimer !== undefined){
                 clearTimeout(updataCommentTimer);
             }
