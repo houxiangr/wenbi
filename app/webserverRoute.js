@@ -12,6 +12,7 @@ let Route = {
     lastEssay:prefix+"/essay/lastEssay",
     hotEssay:prefix+"/essay/hotEssay",
     searchEssay:prefix+"/essay/searchEssay",
+    intelligentEssay:prefix+"/essay/intelligentEssay",
     getComment: prefix+"/comment/getComment",
     addComment: prefix+"/comment/addComment",
     upComment: prefix+"/comment/upComment"
