@@ -17,11 +17,29 @@ let unloadComments = [];
 const ONECOMMENTWIDTH = 175;
 //一次取多少评论的量级
 const COMMENTDEGREE = 3;
+//观看文章范围在0到0.2部分添加用户评分数
+const RANGEZEROTOTWO = 2;
+//是否已经加过分
+let Zero2TwoIsAppended = false;
+//观看文章范围在0.2到0.6部分添加用户评分数
+const RANGETWOTOSIX = 5;
+//是否已经加过分
+let Two2SixIsAppended = false;
+//观看文章范围在0.6到1.0部分添加用户评分数
+let Six2TenIsAppended = false;
+const RANGESIXTOTEN = 10;
 //定时添加评论的setInterval变量
 let addCommentTimer = undefined;
 let updataCommentTimer = undefined;
 let startpos = 0;
 let scrollTop = 0;
+const ESSAYCLIENTHEIGHT = 623;
+
+//根据时间进行评分标准
+const twoTimeScore = 3;
+const fourTimeScore = 5;
+//保存当前观看时间
+let currentTime = 0;
 
 class EssayViewContent extends React.Component {
 
@@ -74,8 +92,20 @@ class EssayViewContent extends React.Component {
         });
     }
 
+    appendTimeScore(){
+        currentTime = currentTime+1;
+        if(currentMinute===2){
+            addEssayAction(twoTimeScore);
+        }else if(currentMinute === 4){
+            addEssayAction(fourTimeScore);
+        }
+    }
     componentDidMount() {
         let that = this;
+        that.timerID = setInterval(
+            () => that.appendTimeScore(),
+            30000
+        );
         //异步请求文章内容
         axios.post(webserverRoute.viewEssay, {
             essid: essayId
@@ -193,12 +223,48 @@ class EssayViewContent extends React.Component {
         });
     }
 
+    addEssayAction(score){
+        var that = this;
+        let scoreData = {
+            essayId:that.state.essay.essayId,
+            score:score
+        };
+        axios.post(webserverRoute.appendAction,
+            qs.stringify(scoreData)).then(function(res){
+                console.log(res);
+        }).catch(function(err){
+            //TODO 错误处理
+            console.log(err);
+        });
+    }
+
     //绑定文章滑动事件
     handleEssayScroll(e){
         var that = this;
         e.preventDefault();
         e.stopPropagation();
-        let tempScrollTop = Math.floor(e.nativeEvent.target.scrollTop);
+        let essayScrollTop = e.nativeEvent.target.scrollTop;
+        //计算用户观看文章百分比
+        let watchPrecent = essayScrollTop/(that.refs.essayBox.scrollHeight-ESSAYCLIENTHEIGHT);
+        console.log(watchPrecent);
+        if(watchPrecent>=0&&watchPrecent<0.2&&Zero2TwoIsAppended === false){
+            that.addEssayAction(RANGEZEROTOTWO);
+            Zero2TwoIsAppended = true;
+            Two2SixIsAppended = false;
+            Six2TenIsAppended = false;
+        }else if(watchPrecent>=0.2&&watchPrecent<0.6&&Two2SixIsAppended === false){
+            that.addEssayAction(RANGETWOTOSIX);
+            Two2SixIsAppended = true;
+            Six2TenIsAppended = false;
+            Zero2TwoIsAppended = false;
+        }else if(watchPrecent>=0.6&&watchPrecent<1.0&&Six2TenIsAppended === false){
+            that.addEssayAction(RANGESIXTOTEN);
+            Six2TenIsAppended = true;
+            Two2SixIsAppended = false;
+            Zero2TwoIsAppended = false;
+        }
+        // console.log(scrollHeight);
+        let tempScrollTop = Math.floor(essayScrollTop);
         if(Math.abs(tempScrollTop - scrollTop)>50){
             // console.log(tempScrollTop);
             if(updataCommentTimer !== undefined){
@@ -224,7 +290,7 @@ class EssayViewContent extends React.Component {
         let formData = new FormData($("#comment-add-form")[0]);
         let commentContent =formData.get("comment-content").trim();
         if(commentContent === ""){
-            console.log("评论不能为空")
+            console.log("评论不能为空");
             return;
         }
         let commentData= {
@@ -265,24 +331,20 @@ class EssayViewContent extends React.Component {
 
     }
 
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+    }
 
     render() {
         return (
             <div id="con">
-                <div id="essay-box" className="fl" onScroll={this.handleEssayScroll}>
-                    {/*<div id="essay-history">*/}
-                    {/*<span>文章修改历史：</span>*/}
-                    {/*<a href="#" className="history-version current-version">1</a>*/}
-                    {/*<a href="#" className="history-version">2</a>*/}
-                    {/*<a href="#" className="history-version">3</a>*/}
-                    {/*<a href="#" className="history-version">4</a>*/}
-                    {/*</div>*/}
+                <div id="essay-box" className="fl" onScroll={this.handleEssayScroll} ref="essayBox">
                     <h1 id="essay-title" className="ml10">{this.state.essay.essayTitle}</h1>
                     <img src={this.state.isCollect?"/static/img/essayview/collected.png":"/static/img/essayview/collect.png"} alt="收藏" className="collectIcon"
                          onClick={this.handleCollect}/>
                     <span id="essay-author" className="ml20">{this.state.essay.authorName}</span>
                     <span id="essay-date" className="ml20">{this.state.essay.essayDate}</span>
-                    <div id="essay-content" dangerouslySetInnerHTML={{__html: this.state.essay.essayContent}}/>
+                    <div id="essay-content" dangerouslySetInnerHTML={{__html: this.state.essay.essayContent}} ref="essayContent"/>
                 </div>
                 <div id="comment-box" className="fr" ref="commentBox">
                     {
