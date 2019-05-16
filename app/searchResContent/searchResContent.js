@@ -20,6 +20,7 @@ class SearchResContent extends React.Component {
             matchStr:that.props.searchWord
         })).then(function(res){
             let data = res.data;
+            console.log(data);
             if(data.state){
                 let searchResList = [];
                 data.essays.forEach(function(value,index){

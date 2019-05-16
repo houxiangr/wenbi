@@ -49,14 +49,16 @@ class IndexContent extends React.Component {
         let that = this;
         axios.post(webserverRoute.intelligentEssay).then(function(res){
             let intelligentRes = res.data.essays;
-            console.log(res);
-            let len = intelligentRes.length;
-            for(var i=0;i<len;i++){
-                intelligentEssay.push(<EssayImage key={i} imgUrl={intelligentRes[i].essayCover} essayTitle={intelligentRes[i].essayTitle} essayId={intelligentRes[i].essayId}/>);
+            // console.log(res);
+            if(intelligentRes !=null){
+                let len = intelligentRes.length;
+                for(var i=0;i<len;i++){
+                    intelligentEssay.push(<EssayImage key={i} imgUrl={intelligentRes[i].essayCover} essayTitle={intelligentRes[i].essayTitle} essayId={intelligentRes[i].essayId}/>);
+                }
+                that.setState({
+                    intelligentEssayList:intelligentEssay
+                });
             }
-            that.setState({
-                intelligentEssayList:intelligentEssay
-            });
         });
 
     }

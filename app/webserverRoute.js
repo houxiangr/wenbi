@@ -9,6 +9,7 @@ let Route = {
     addEssay: prefix+"/essay/addEssay",
     viewEssay: prefix+"/essay/viewEssay",
     collectEssay: prefix+"/essay/collectEssay",
+    cancelCollectEssay: prefix+"/essay/cancelCollectEssay",
     lastEssay:prefix+"/essay/lastEssay",
     hotEssay:prefix+"/essay/hotEssay",
     searchEssay:prefix+"/essay/searchEssay",

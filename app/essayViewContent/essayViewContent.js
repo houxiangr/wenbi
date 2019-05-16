@@ -110,7 +110,7 @@ class EssayViewContent extends React.Component {
         axios.post(webserverRoute.viewEssay, {
             essid: essayId
         }).then(function (res) {
-            // console.log(res);
+            console.log(res);
             that.setState({
                 essay: res.data,
                 isCollect: res.data.isCollect !== 0
@@ -314,21 +314,30 @@ class EssayViewContent extends React.Component {
         if(!that.state.loginState){
             return;
         }
-        //防止重复收藏
+        //取消收藏
         if(that.state.isCollect){
-            return;
-        }
-        axios.post(webserverRoute.collectEssay,qs.stringify({
-            essayId: that.state.essay.essayId
-        })).then(function(res){
-            that.setState({
-                isCollect: true
+            axios.post(webserverRoute.cancelCollectEssay,qs.stringify({
+                essayId: that.state.essay.essayId
+            })).then(function(res){
+                that.setState({
+                    isCollect:false
+                })
+            }).catch(function(err){
+                //TODO 错误处理
+                console.log(err)
             });
-        }).catch(function(err){
-            //TODO 错误处理
-            console.log(err)
-        });
-
+        }else{
+            axios.post(webserverRoute.collectEssay,qs.stringify({
+                essayId: that.state.essay.essayId
+            })).then(function(res){
+                that.setState({
+                    isCollect: true
+                });
+            }).catch(function(err){
+                //TODO 错误处理
+                console.log(err)
+            });
+        }
     }
 
     componentWillUnmount() {
